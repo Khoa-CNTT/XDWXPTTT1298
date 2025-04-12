@@ -7,6 +7,7 @@ use App\Http\Requests\KhachHangDangKyRequest;
 use App\Http\Requests\KhachHangXoaRequest;
 use App\Models\KhachHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KhachHangController extends Controller
 {
@@ -75,5 +76,45 @@ class KhachHangController extends Controller
         return response()->json([
             'data' => $data
         ]);
+    }
+
+    public function dangNhap(Request $request){
+        $user = KhachHang::where('email', $request->email)
+            ->where('password', $request->password)
+            ->first();
+        if($user){
+            if($user->is_active == 0){
+                return response()->json([
+                    'status'    => 0,
+                    'message'   => 'Tài khoản của bạn chưa được kích hoạt!'
+                ]);
+            }else{
+                return response()->json([
+                    'status'    => 1,
+                    'message'   => 'Đăng nhập thành công!',
+                    'token'     => $user->createToken('key_khachhang')->plainTextToken,
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Tài khoản hoặc mật khẩu không đúng!'
+            ]);
+        }
+    }
+    public function checkLogin(){
+        $user = Auth::guard('sanctum')->user();
+        if($user && $user instanceof \App\Models\KhachHang){
+            return response()->json([
+                'status'    => 1,
+                'name'      =>$user->ho_va_ten,
+                'email'     =>$user->email,
+                'so_du'     =>$user->so_du,
+            ]);
+        }else{
+                return response()->json([
+                    'status'    => 0,
+                ]);
+        }
     }
 }

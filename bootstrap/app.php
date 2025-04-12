@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'nhanVienMiddleware' => \App\Http\Middleware\NhanVienMiddleware::class
+            'nhanVienMiddleware' => \App\Http\Middleware\NhanVienMiddleware::class,
+            'khachHangMiddleware' => \App\Http\Middleware\KhachHangMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

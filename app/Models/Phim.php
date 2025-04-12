@@ -25,6 +25,5 @@ class Phim extends Model
         'luot_xem',
         'gia_ban',
         'trang_thai',
-
     ];
 }

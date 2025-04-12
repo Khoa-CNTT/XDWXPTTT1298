@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('slug_phim');
             $table->integer('id_the_loai');
             $table->integer('loai_phim');
-            $table->string('hinh_anh');
+            $table->longText('hinh_anh');
             $table->string('trailer');
             $table->string('link_phim');
             $table->string('thoi_luong');
@@ -32,9 +32,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('phims');

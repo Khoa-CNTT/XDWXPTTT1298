@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/khach-hang/dang-ky', [KhachHangController::class, 'dangKy']);
+Route::post('/khach-hang/dang-nhap', [KhachHangController::class, 'dangNhap']);
+Route::get('/khach-hang/check-login', [KhachHangController::class, 'checkLogin']);
 
-
-
+Route::get('/khach-hang/phim/data-phim-chieu-rap', [PhimController::class, 'getDataPhimChieuRap']);
+Route::get('/khach-hang/phim/data-phim-bo', [PhimController::class, 'getDataPhimBo']);
+Route::get('/khach-hang/phim/data-phim-de-cu', [PhimController::class, 'getDataPhimDeCu']);
+Route::get('/khach-hang/phim/data-phim-top/phim-chieu-rap', [PhimController::class, 'getDataPhimTopChieuRap']);
+Route::get('/khach-hang/phim/data-phim-top/phim-bo', [PhimController::class, 'getDataPhimTopPhimBo']);
 
 
 //ADMIN
@@ -36,5 +41,11 @@ Route::get('/admin/the-loai/data-open', [TheLoaiController::class, 'dataOpen'])-
 
 Route::post('/admin/phim/create', [PhimController::class, 'create'])->middleware('nhanVienMiddleware');
 Route::get('/admin/phim/data', [PhimController::class, 'getData'])->middleware('nhanVienMiddleware');
+Route::post('/admin/phim/delete', [PhimController::class, 'xoaPhim'])->middleware('nhanVienMiddleware');
+Route::post('/admin/phim/update', [PhimController::class, 'capNhatPhim'])->middleware('nhanVienMiddleware');
+Route::post('/admin/phim/change-status', [PhimController::class, 'changeStatus'])->middleware('nhanVienMiddleware');
+Route::post('/admin/phim/tim-kiem', [PhimController::class, 'timKiem'])->middleware('nhanVienMiddleware');
+
+
 Route::post('/admin/dang-nhap', [NhanVienController::class, 'dangNhap']);
 Route::get('/admin/check-login', [NhanVienController::class, 'checkLogin']);

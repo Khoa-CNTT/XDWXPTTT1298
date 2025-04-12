@@ -34,7 +34,7 @@ class NhanVienController extends Controller
         NhanVien::where('id', $request->id)->delete();
         return response()->json([
             'status'    =>  true,
-            'message'   =>  'Bạn đã xóa khách hàng ' . $request->ho_va_ten . ' thành công'
+            'message'   =>  'Đã xóa khách hàng ' . $request->ho_va_ten . ' thành công'
         ]);
     }
     public function capNhatNhanVien(Request $request){
@@ -63,7 +63,7 @@ class NhanVienController extends Controller
         }
         return response()->json([
             'status'    =>  true,
-            'message'   =>  'Bạn đã cập nhật nhân viên ' . $request->ho_va_ten . ' thành công'
+            'message'   =>  'Đã cập nhật nhân viên ' . $request->ho_va_ten . ' thành công'
         ]);
     }
     public function timKiem(Request $request){

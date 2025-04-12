@@ -57,7 +57,7 @@ class TheLoaiController extends Controller
         }
         return response()->json([
             'status'    =>  true,
-            'message'   =>  'Bạn đã cập nhật thể loại ' . $request->ten_the_loai . ' thành công'
+            'message'   =>  'Đã cập nhật thể loại ' . $request->ten_the_loai . ' thành công'
         ]);
     }
     public function dataOpen(){
