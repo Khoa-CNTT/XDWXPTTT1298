@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/khach-hang/dang-ky', [KhachHangController::class, 'dangKy']);
 Route::post('/khach-hang/dang-nhap', [KhachHangController::class, 'dangNhap']);
 Route::get('/khach-hang/check-login', [KhachHangController::class, 'checkLogin']);
+Route::post('/khach-hang/kich-hoat-tai-khoan', [KhachHangController::class, 'kichHoatTaiKhoan']);
 
 Route::get('/khach-hang/phim/data-phim-chieu-rap', [PhimController::class, 'getDataPhimChieuRap']);
 Route::get('/khach-hang/phim/data-phim-bo', [PhimController::class, 'getDataPhimBo']);

@@ -7,6 +7,7 @@ use App\Http\Requests\KhachHangDangKyRequest;
 use App\Http\Requests\KhachHangXoaRequest;
 use App\Models\KhachHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 class KhachHangController extends Controller
@@ -19,6 +20,11 @@ class KhachHangController extends Controller
             'ngay_sinh'         =>$request->ngay_sinh,
             'so_dien_thoai'     =>$request->so_dien_thoai,
         ]);
+
+        $data['ho_va_ten'] = $request->ho_va_ten;
+        $data['link_kich_hoat']  = 'http://localhost:5173/kich-hoat/'. $khachHang->hash_active;
+        Mail::to('kiettran1112003@gmail.com')->send(new \App\Mail\MasterMail('Kích Hoạt Tài Khoản', 'kichhoat', $data));
+
         return response()->json([
             'status'    =>1,
             'message'   =>'Đã đăng ký khách hàng ' . $request->ho_va_ten . ' thành công!'
@@ -115,6 +121,29 @@ class KhachHangController extends Controller
                 return response()->json([
                     'status'    => 0,
                 ]);
+        }
+    }
+    public function kichHoatTaiKhoan(Request $request){
+        $khachHang = KhachHang::where('id', $request->id_khach_hang)->first();
+        if($khachHang){
+            if($khachHang->is_active == 1){
+                return response()->json([
+                    'status'    => 2,
+                    'message'   => 'Tài khoản đã được kích hoạt!'
+                ]);
+            }else{
+                $khachHang->is_active = 1;
+                $khachHang->save();
+                return response()->json([
+                    'status'    => 1,
+                    'message'   => 'Kích hoạt tài khoản thành công!'
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Kích hoạt tài khoản thất bại!'
+            ]);
         }
     }
 }
